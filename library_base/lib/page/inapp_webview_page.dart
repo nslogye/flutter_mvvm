@@ -1,0 +1,239 @@
+import 'dart:async';
+import 'dart:core';
+import 'dart:io';
+
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:fluwx/fluwx.dart';
+import 'package:library_base/constant/constant.dart';
+import 'package:library_base/generated/l10n.dart';
+import 'package:library_base/net/apis.dart';
+import 'package:library_base/res/colors.dart';
+import 'package:library_base/res/gaps.dart';
+import 'package:library_base/res/styles.dart';
+import 'package:library_base/router/fade_route.dart';
+import 'package:library_base/utils/log_util.dart';
+import 'package:library_base/utils/object_util.dart';
+import 'package:library_base/utils/toast_util.dart';
+import 'package:library_base/widget/button/back_button.dart';
+import 'package:library_base/widget/dialog/dialog_util.dart';
+import 'package:library_base/widget/easyrefresh/first_refresh.dart';
+import 'package:library_base/widget/image/gallery_photo.dart';
+import 'package:library_base/widget/image/local_image.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+class InappWebviewPage extends StatefulWidget {
+  final String? url;
+  final String? title;
+  final String? title_share;
+  final String? summary_share;
+  final String? url_share;
+  final String? thumb_share;
+  final bool show_share;
+  final bool captureAllGestures;
+
+  const InappWebviewPage(
+    this.url,
+    this.title, {
+    super.key,
+    this.title_share,
+    this.url_share,
+    this.summary_share,
+    this.thumb_share,
+    this.show_share = true,
+    this.captureAllGestures = false,
+  });
+  @override
+  InappWebviewPageState createState() => InappWebviewPageState();
+}
+
+class InappWebviewPageState extends State<InappWebviewPage> {
+  InAppWebViewController? webviewController;
+  PullToRefreshController? pullToRefreshController;
+  ContextMenu? contextMenu;
+
+  double _opacity = 0.01;
+  bool loaded = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    pullToRefreshController = PullToRefreshController(
+      settings: PullToRefreshSettings(
+          color: Colours.transparent,
+          enabled: Platform.isIOS,
+          backgroundColor: Colours.transparent),
+      onRefresh: () async {
+        pullToRefreshController!.endRefreshing();
+      },
+    );
+  }
+
+  Future<void> _share() async {
+    DialogUtil.showShareLinkDialog(
+      context,
+      url_share: widget.url_share!,
+      title_share: widget.title_share,
+      summary_share: widget.summary_share,
+      thumb_share: widget.thumb_share,
+    );
+  }
+
+  Future<void> _shareWechat(BuildContext context, WeChatScene scene) async {
+    bool result = await Fluwx().isWeChatInstalled;
+    if (!result) {
+      return;
+    }
+    Fluwx().share(WeChatShareWebPageModel(widget.url_share!,
+        title: widget.title_share!,
+        description: ObjectUtil.isEmpty(widget.summary_share)
+            ? null
+            : widget.summary_share,
+        thumbData: null,
+        scene: scene));
+  }
+
+  String getFontUri(ByteData data, String mime) {
+    final buffer = data.buffer;
+    return Uri.dataFromBytes(
+            buffer.asUint8List(data.offsetInBytes, data.lengthInBytes),
+            mimeType: mime)
+        .toString();
+  }
+
+  void init() async {
+    final fontData = await rootBundle.load('assets/fonts/HYQiHei-55S.otf');
+    final fontUri = getFontUri(fontData, 'font/opentype').toString();
+    final fontCss =
+        '@font-face { font-family: customFont; src: url($fontUri); } * { font-family: customFont; }';
+
+    await webviewController?.injectCSSCode(source: fontCss);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        backgroundColor: Colours.white,
+        appBar: AppBar(
+          leading: BackButtonEx(
+            onPressed: () async {
+              if (webviewController != null) {
+                final bool canGoBack = await webviewController!.canGoBack();
+                if (canGoBack) {
+                  // 网页可以返回时，优先返回上一页
+                  await webviewController!.goBack();
+                }
+              }
+              Navigator.maybePop(context);
+            },
+          ),
+          elevation: 0,
+          systemOverlayStyle:
+              const SystemUiOverlayStyle(statusBarBrightness: Brightness.light),
+          backgroundColor: Colours.white,
+          actions: widget.show_share
+              ? <Widget>[
+                  IconButton(
+                    icon: const LocalImage('icon_share',
+                        package: Constant.baseLib, width: 20, height: 20),
+                    onPressed: _share,
+                  )
+                ]
+              : null,
+          centerTitle: true,
+          title: Text(widget.title ?? '', style: TextStyles.textBlack18),
+        ),
+        body: Stack(children: [
+          Opacity(
+              opacity: _opacity,
+              // --- FIX_BLINK ---
+              child: InAppWebView(
+                initialUrlRequest: URLRequest(url: WebUri(widget.url ?? '')),
+                pullToRefreshController: pullToRefreshController,
+                initialSettings: InAppWebViewSettings(
+                    useShouldOverrideUrlLoading: true,
+                    useOnLoadResource: true,
+                    javaScriptEnabled: true,
+                    incognito: true,
+                    mediaPlaybackRequiresUserGesture: false,
+                    clearCache: false,
+                    javaScriptCanOpenWindowsAutomatically: false,
+                    hardwareAcceleration: true,
+                    useHybridComposition: true,
+                    allowsAirPlayForMediaPlayback: false,
+                    allowsInlineMediaPlayback: true),
+                shouldOverrideUrlLoading: (InAppWebViewController controller,
+                    NavigationAction navigationAction) async {
+                  var uri = navigationAction.request.url;
+                  LogUtil.v('Open Url : ${uri}');
+                  return NavigationActionPolicy.ALLOW;
+                  //可以做一些逻辑处理
+                  // if (uri.toString().contains(Apis.URL_DISPLAY_WEBSITE)) {
+                  // } else {
+                  //   if (await canLaunchUrl(WebUri(uri.toString()))) {
+                  //     await canLaunchUrl(WebUri(uri.toString()));
+                  //   }
+                  //   return NavigationActionPolicy.CANCEL;
+                  // }
+                },
+                onWebViewCreated: (InAppWebViewController controller) {
+                  webviewController = controller;
+                  webviewController!.addJavaScriptHandler(
+                      handlerName: 'share',
+                      callback: (args) {
+                        WeChatScene scene = args[0] == 1
+                            ? WeChatScene.session
+                            : args[0] == 2
+                                ? WeChatScene.timeline
+                                : WeChatScene.session;
+                        _shareWechat(context, scene);
+                      });
+
+                  webviewController!.addJavaScriptHandler(
+                      handlerName: 'previewPictures',
+                      callback: (args) {
+                        LogUtil.v('previewPictures : $args');
+
+                        List<Gallery> galleryList = [];
+                        int length = args[0]?.length;
+                        for (int i = 0; i < length; i++) {
+                          galleryList.add(
+                              Gallery(id: args[0][i], resource: args[0][i]));
+                        }
+
+                        Navigator.push(
+                          context,
+                          FadeRoute(
+                            pageBuilder: (context) => GalleryPhotoViewWrapper(
+                              galleryItems: galleryList,
+                              backgroundDecoration: const BoxDecoration(
+                                color: Colors.black,
+                              ),
+                              initialIndex: args.length >= 2 ? args[1] : 0,
+                              scrollDirection: Axis.horizontal,
+                            ),
+                          ),
+                        );
+                      });
+                },
+                onLoadStart: (InAppWebViewController controller, Uri? url) {
+                  setState(() {});
+                },
+                onLoadStop:
+                    (InAppWebViewController controller, Uri? url) async {
+                  if (!loaded) {
+                    loaded = true;
+                    setState(() {
+                      _opacity = 1.0;
+                    });
+                  }
+
+                  //init();
+                },
+              )),
+          !loaded ? const FirstRefresh() : Gaps.empty
+        ]));
+  }
+}

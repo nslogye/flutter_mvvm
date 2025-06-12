@@ -1,0 +1,145 @@
+{
+  // 使用 IntelliSense 了解相关属性。 
+  // 悬停以查看现有属性的描述。
+  // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "flutter_mvvm",
+      "request": "launch",
+      "type": "dart"
+    },
+    {
+      "name": "flutter_mvvm (profile mode)",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "profile"
+    },
+    {
+      "name": "flutter_mvvm (release mode)",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "release"
+    },
+    {
+      "name": "library_base",
+      "cwd": "library_base",
+      "request": "launch",
+      "type": "dart"
+    },
+    {
+      "name": "library_base (profile mode)",
+      "cwd": "library_base",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "profile"
+    },
+    {
+      "name": "library_base (release mode)",
+      "cwd": "library_base",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "release"
+    },
+    {
+      "name": "library_kchart",
+      "cwd": "library_kchart",
+      "request": "launch",
+      "type": "dart"
+    },
+    {
+      "name": "library_kchart (profile mode)",
+      "cwd": "library_kchart",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "profile"
+    },
+    {
+      "name": "library_kchart (release mode)",
+      "cwd": "library_kchart",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "release"
+    },
+    {
+      "name": "module_home",
+      "cwd": "module_home",
+      "request": "launch",
+      "type": "dart"
+    },
+    {
+      "name": "module_home (profile mode)",
+      "cwd": "module_home",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "profile"
+    },
+    {
+      "name": "module_home (release mode)",
+      "cwd": "module_home",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "release"
+    },
+    {
+      "name": "module_login",
+      "cwd": "module_login",
+      "request": "launch",
+      "type": "dart"
+    },
+    {
+      "name": "module_login (profile mode)",
+      "cwd": "module_login",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "profile"
+    },
+    {
+      "name": "module_login (release mode)",
+      "cwd": "module_login",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "release"
+    },
+    {
+      "name": "module_otc",
+      "cwd": "module_otc",
+      "request": "launch",
+      "type": "dart"
+    },
+    {
+      "name": "module_otc (profile mode)",
+      "cwd": "module_otc",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "profile"
+    },
+    {
+      "name": "module_otc (release mode)",
+      "cwd": "module_otc",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "release"
+    },
+    {
+      "name": "module_user",
+      "cwd": "module_user",
+      "request": "launch",
+      "type": "dart"
+    },
+    {
+      "name": "module_user (profile mode)",
+      "cwd": "module_user",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "profile"
+    },
+    {
+      "name": "module_user (release mode)",
+      "cwd": "module_user",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "release"
+    }
+  ]
+}
