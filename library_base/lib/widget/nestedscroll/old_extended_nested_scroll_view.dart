@@ -180,7 +180,7 @@ class NestedScrollView extends StatefulWidget {
   /// The [reverse], [headerSliverBuilder], and [body] arguments must not be
   /// null.
   const NestedScrollView({
-    Key? key,
+    super.key,
     this.controller,
     this.scrollDirection = Axis.vertical,
     this.reverse = false,
@@ -194,7 +194,7 @@ class NestedScrollView extends StatefulWidget {
     this.clipBehavior = Clip.hardEdge,
     this.restorationId,
     this.keyboardDismissBehavior = ScrollViewKeyboardDismissBehavior.manual,
-  }) : super(key: key);
+  });
 
   /// {@template flutter.widgets.scroll_view.keyboardDismissBehavior}
   /// [ScrollViewKeyboardDismissBehavior] the defines how this [ScrollView] will

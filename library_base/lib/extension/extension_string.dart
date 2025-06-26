@@ -2,19 +2,19 @@
  * @Author: wanku.ye nslogye@gmail.com
  * @Date: 2025-06-11 15:10:22
  * @LastEditors: wanku.ye nslogye@gmail.com
- * @LastEditTime: 2025-06-11 15:10:32
+ * @LastEditTime: 2025-06-25 16:39:46
  * @FilePath: /flutter_mvvm/library_base/lib/extension/extension_string.dart
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
 import 'dart:convert';
 import 'package:crypto/crypto.dart';
 
-/// 判断字符串是否为空
+/// 全局判断字符串是否为空
 bool isEmptyString(String? str) {
   return str == null || str.isEmpty;
 }
 
-extension StringExtension on String {
+extension StringBase64 on String {
   String md5Hash() {
     // 将字符串转换为字节数组
     var content = utf8.encode(this);
@@ -49,7 +49,6 @@ extension StringExtension on String {
       return utf8.decode(base64.decode(this));
     } catch (e) {
       // 若解码失败，打印错误信息并返回原字符串
-      print('Base64 decoding error: $e');
       return this;
     }
   }
@@ -84,5 +83,44 @@ extension StringExtension on String {
     if (start < 0) start = 0;
     if (end > length) end = length;
     return substring(0, start) + replacement + substring(end);
+  }
+}
+
+//判断一个字符串是否是区块链地址
+//✅ 以太坊（ETH）：0x 开头，后面 40 个十六进制字符
+//✅ 比特币（BTC）：以 1、3 或 bc1 开头，长度 26-39 之间
+//✅ Solana（SOL）：Base58 编码，长度 32-44
+//✅ TRON（TRX）：T 开头，后面 33 个 Base58 编码字符
+extension BlockchainValidator on String {
+  /// 判断是否是以太坊地址（ETH）
+  bool get isEthereumAddress {
+    final ethRegExp = RegExp(r'^0x[a-fA-F0-9]{40}$');
+    return ethRegExp.hasMatch(this);
+  }
+
+  /// 判断是否是比特币地址（BTC）
+  bool get isBitcoinAddress {
+    final btcRegExp = RegExp(r'^(1|3|bc1)[a-zA-HJ-NP-Z0-9]{25,39}$');
+    return btcRegExp.hasMatch(this);
+  }
+
+  /// 判断是否是 Solana 地址（SOL）
+  bool get isSolanaAddress {
+    final solRegExp = RegExp(r'^[1-9A-HJ-NP-Za-km-z]{32,44}$');
+    return solRegExp.hasMatch(this);
+  }
+
+  /// 判断是否是 TRON 地址（TRX）
+  bool get isTronAddress {
+    final tronRegExp = RegExp(r'^T[a-zA-HJ-NP-Z0-9]{33}$');
+    return tronRegExp.hasMatch(this);
+  }
+
+  /// 通用方法：检查一个地址属于哪种区块链
+  bool get isBlockchainAddress {
+    return isEthereumAddress ||
+        isBitcoinAddress ||
+        isSolanaAddress ||
+        isTronAddress;
   }
 }

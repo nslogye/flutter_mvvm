@@ -1,21 +1,20 @@
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:library_base/res/colors.dart';
 
+//圆角图片
 class RoundImage extends StatelessWidget {
-  
-  const RoundImage(this.imageUrl, {
-    Key? key,
-    this.width, 
+  const RoundImage(
+    this.imageUrl, {
+    super.key,
+    this.width,
     this.height,
     this.fit = BoxFit.cover,
     this.borderRadius,
     this.placeholderImage,
     this.fadeInDuration = const Duration(milliseconds: 500),
-  }) : assert(imageUrl != null, 'The [imageUrl] argument must not be null.'),
-       super(key: key);
-  
+  });
+
   final String imageUrl;
   final double? width;
   final double? height;
@@ -26,7 +25,6 @@ class RoundImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return CachedNetworkImage(
       fadeInDuration: fadeInDuration,
       imageUrl: imageUrl,
@@ -55,7 +53,6 @@ class RoundImage extends StatelessWidget {
           image: placeholderImage,
         ),
       ),
-
     );
   }
 }

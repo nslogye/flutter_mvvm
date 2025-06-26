@@ -2,7 +2,7 @@
  * @Author: wanku.ye nslogye@gmail.com
  * @Date: 2025-06-10 11:39:54
  * @LastEditors: wanku.ye nslogye@gmail.com
- * @LastEditTime: 2025-06-11 15:43:54
+ * @LastEditTime: 2025-06-24 15:47:19
  * @FilePath: /flutter_mvvm/module_otc/lib/page/otc_page.dart
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -23,6 +23,7 @@ class OtcPageState extends State<OtcPage> {
     return GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(), // 点击空白处收起键盘
         child: Scaffold(
+            backgroundColor: Colors.white,
             appBar: CustomAppBar(title: S.current.otc, onBackPressed: null),
             body: Container(color: Colors.white)));
   }

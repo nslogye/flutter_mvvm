@@ -1,3 +1,11 @@
+/*
+ * @Author: wanku.ye nslogye@gmail.com
+ * @Date: 2025-06-03 15:38:36
+ * @LastEditors: wanku.ye nslogye@gmail.com
+ * @LastEditTime: 2025-06-26 11:50:02
+ * @FilePath: /flutter_mvvm/library_base/lib/widget/image/frame_animation_image.dart
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
 import 'package:flutter/material.dart';
 
 class FrameAnimationImage extends StatefulWidget {
@@ -7,12 +15,12 @@ class FrameAnimationImage extends StatefulWidget {
   final int interval;
   final bool repeat;
 
-  const FrameAnimationImage(this.assetList, {
-    this.width,
-    this.height,
-    this.interval = 25,
-    this.repeat = false
-  });
+  const FrameAnimationImage(this.assetList,
+      {super.key,
+      this.width,
+      this.height,
+      this.interval = 25,
+      this.repeat = false});
 
   @override
   State<StatefulWidget> createState() {
@@ -31,9 +39,7 @@ class _FrameAnimationImageState extends State<FrameAnimationImage>
   void initState() {
     super.initState();
 
-    if (widget.interval != null) {
-      interval = widget.interval;
-    }
+    interval = widget.interval;
     final int imageCount = widget.assetList.length;
     final int maxTime = interval * imageCount;
 
@@ -41,15 +47,15 @@ class _FrameAnimationImageState extends State<FrameAnimationImage>
     _controller = new AnimationController(
         duration: Duration(milliseconds: maxTime), vsync: this);
     _controller.addStatusListener((AnimationStatus status) {
-      if(status == AnimationStatus.completed && widget.repeat) {
+      if (status == AnimationStatus.completed && widget.repeat) {
         _controller.forward(from: 0.0); // 完成后重新开始
       }
     });
 
-    _animation = new Tween<double>(begin: 0, end: imageCount.toDouble()-1).animate(_controller)
+    _animation = Tween<double>(begin: 0, end: imageCount.toDouble() - 1)
+        .animate(_controller)
       ..addListener(() {
-        setState(() {
-        });
+        setState(() {});
       });
 
     _controller.forward();
@@ -78,16 +84,13 @@ class _FrameAnimationImageState extends State<FrameAnimationImage>
       }
     }
 
-    images.add( Image.asset(
+    images.add(Image.asset(
       widget.assetList[ix],
       width: widget.width,
       height: widget.height,
       gaplessPlayback: true,
-    ) );
+    ));
 
-
-    return Stack(
-        alignment: AlignmentDirectional.center,
-        children: images);
+    return Stack(alignment: AlignmentDirectional.center, children: images);
   }
 }

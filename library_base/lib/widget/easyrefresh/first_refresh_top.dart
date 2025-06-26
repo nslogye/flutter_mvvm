@@ -5,18 +5,16 @@ import 'package:library_base/res/styles.dart';
 import 'package:library_base/widget/common_scroll_view.dart';
 
 class FirstRefreshTop extends StatelessWidget {
-
   final double top;
   const FirstRefreshTop({
-    Key? key,
+    super.key,
     this.top = 50,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return CommonScrollView(
-
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
@@ -31,9 +29,9 @@ class FirstRefreshTop extends StatelessWidget {
           ),
           Container(
             alignment: Alignment.center,
-            child: Text(S.of(context).loading, style: TextStyles.textGray400_w400_14),
+            child: Text(S.of(context).loading,
+                style: TextStyles.textGray400_w400_14),
           )
-
         ]);
   }
 }

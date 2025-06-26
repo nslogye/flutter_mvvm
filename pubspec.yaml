@@ -34,6 +34,8 @@ dependencies:
     path: module_otc
   module_login:
     path: module_login
+  module_quote:
+    path: module_quote
   module_user:
     path: module_user
 

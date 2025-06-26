@@ -1,18 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 import 'package:library_base/res/colors.dart';
 
 const double _kTabHeight = 46.0;
 const double _kTextAndIconTabHeight = 72.0;
 
 class TrendTab extends StatelessWidget {
-  /// Creates a material design [TabBar] tab.
-  ///
-  /// At least one of [text], [icon], and [child] must be non-null. The [text]
-  /// and [child] arguments must not be used at the same time. The
-  /// [iconMargin] is only useful when [icon] and either one of [text] or
-  /// [child] is non-null.
   const TrendTab({
     super.key,
     required this.select,

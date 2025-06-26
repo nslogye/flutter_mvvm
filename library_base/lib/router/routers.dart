@@ -21,8 +21,23 @@ class Routers {
   static String mainPage = '/mainPage';
   static String homePage = '/homePage';
   static String otcPage = '/otcPage';
+  static String quotePage = '/quotePage';
   static String minePage = '/minePage';
   static String loginPage = '/loginPage';
+
+  static String indexDetailPage = '/indexDetailPage';
+  static String spotDetailPage = '/spotDetailPage';
+  static String spotDetailHPage = '/spotDetailHPage';
+  static String spotDepthOrderPage = '/spotDepthOrderPage';
+  static String spotLatestDealPage = '/spotLatestDealPage';
+  static String globalQuotePage = '/globalQuotePage';
+  static String treemapPage = '/treemapPage';
+
+  static String milestonePage = '/milestonePage';
+  static String schoolPage = '/schoolPage';
+  static String lessonPage = '/lessonPage';
+  static String communityPage = '/communityPage';
+  static String articleListPage = '/articleListPage';
 
   static void init(List<IRouter> listRouter) {
     router = FluroRouter();

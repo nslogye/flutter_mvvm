@@ -140,7 +140,7 @@ class NumUtil {
 
   /// 除 (精确相除,防止精度丢失).
   /// divide (without loosing precision).
-  static Decimal divideDec(num a, num b) {
+  static Decimal divideDec(num a, num b, {int precision = 0}) {
     return divideDecStr(a.toString(), b.toString());
   }
 
@@ -185,8 +185,9 @@ class NumUtil {
   }
 
   /// 除
-  static Decimal divideDecStr(String a, String b) {
-    return (Decimal.parse(a) / Decimal.parse(b)).toDecimal();
+  static Decimal divideDecStr(String a, String b, {int precision = 0}) {
+    return (Decimal.parse(a) / Decimal.parse(b))
+        .toDecimal(scaleOnInfinitePrecision: precision);
   }
 
   /// 余数

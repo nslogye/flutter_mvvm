@@ -1,4 +1,3 @@
-
 class KChartNumberUtil {
   static String volFormat(double n) {
     if (n > 10000 && n < 999999) {
@@ -38,7 +37,7 @@ class KChartNumberUtil {
 //        LogUtil.v("val index=$index i=$i ${val[i]} ");
         // 除以三没有余数、不等于零并且不等于1 就加个逗号
         if (index % 3 == 0 && index != 0 && val[i] != '-') {
-          val[i] = val[i] + ',';
+          val[i] = '${val[i]},';
         }
       }
 

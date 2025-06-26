@@ -1,7 +1,6 @@
 class DepthEntity {
   double price;
   double amount;
-
   DepthEntity(this.price, this.amount);
 
   @override

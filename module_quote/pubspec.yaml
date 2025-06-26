@@ -1,0 +1,38 @@
+name: module_quote
+description: "A new Flutter package project."
+version: 0.0.1
+homepage:
+
+environment:
+  sdk: ^3.5.0
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  library_base:
+    path: ../library_base
+  library_kchart:
+    path: ../library_kchart
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+# The following section is specific to Flutter packages.
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/depth.json
+
+  module:
+    androidX: true
+    androidPackage: com.fblock.module_quote
+    iosBundleIdentifier: com.fblock.moduleQuote

@@ -14,20 +14,20 @@ class KLineTab extends StatelessWidget {
   /// [iconMargin] is only useful when [icon] and either one of [text] or
   /// [child] is non-null.
   const KLineTab({
-    Key? key,
+    super.key,
     this.select = false,
     this.text,
     this.icon,
     this.padding,
     this.iconMargin = const EdgeInsets.only(bottom: 10.0),
     this.child,
-  }) : assert(text != null || child != null || icon != null),
-        assert(text == null || child == null),
-        super(key: key);
+  })  : assert(text != null || child != null || icon != null),
+        assert(text == null || child == null);
 
   final EdgeInsetsGeometry? padding;
 
   final bool select;
+
   /// The text to display as the tab's label.
   ///
   /// Must not be used in combination with [child].
@@ -50,18 +50,22 @@ class KLineTab extends StatelessWidget {
   final EdgeInsetsGeometry iconMargin;
 
   Widget _buildLabelText() {
-    return child ?? Container(
-      height: 24.0,
-      padding: padding,
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-        color: select ? Colours.app_main_500 : Colours.gray_100,
-        borderRadius: BorderRadius.all(Radius.circular(4.0)),
-      ),
-      child: Text(text ?? '', softWrap: false, overflow: TextOverflow.fade,
-          style: select ? TextStyle(fontSize: 13, color: Colours.white) : TextStyle(fontSize: 13, color: Colours.gray_500)
-      ),
-    );
+    return child ??
+        Container(
+          height: 24.0,
+          padding: padding,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: select ? Colours.app_main_500 : Colours.gray_100,
+            borderRadius: const BorderRadius.all(Radius.circular(4.0)),
+          ),
+          child: Text(text ?? '',
+              softWrap: false,
+              overflow: TextOverflow.fade,
+              style: select
+                  ? const TextStyle(fontSize: 13, color: Colours.white)
+                  : const TextStyle(fontSize: 13, color: Colours.gray_500)),
+        );
   }
 
   @override
@@ -83,8 +87,8 @@ class KLineTab extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Container(
-            child: icon,
             margin: iconMargin,
+            child: icon,
           ),
           _buildLabelText(),
         ],
@@ -94,8 +98,8 @@ class KLineTab extends StatelessWidget {
     return SizedBox(
       height: height,
       child: Center(
-        child: label,
         widthFactor: 1.0,
+        child: label,
       ),
     );
   }
@@ -104,6 +108,7 @@ class KLineTab extends StatelessWidget {
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties.add(StringProperty('text', text, defaultValue: null));
-    properties.add(DiagnosticsProperty<Widget>('icon', icon, defaultValue: null));
+    properties
+        .add(DiagnosticsProperty<Widget>('icon', icon, defaultValue: null));
   }
 }

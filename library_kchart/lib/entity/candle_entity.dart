@@ -1,6 +1,4 @@
-
- mixin CandleEntity{
-
+mixin CandleEntity {
   double? open;
   double? high;
   double? low;

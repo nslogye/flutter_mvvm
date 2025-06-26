@@ -7,21 +7,17 @@ import 'package:flutter/services.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:fluwx/fluwx.dart';
 import 'package:library_base/constant/constant.dart';
-import 'package:library_base/generated/l10n.dart';
-import 'package:library_base/net/apis.dart';
 import 'package:library_base/res/colors.dart';
 import 'package:library_base/res/gaps.dart';
 import 'package:library_base/res/styles.dart';
 import 'package:library_base/router/fade_route.dart';
 import 'package:library_base/utils/log_util.dart';
 import 'package:library_base/utils/object_util.dart';
-import 'package:library_base/utils/toast_util.dart';
 import 'package:library_base/widget/button/back_button.dart';
 import 'package:library_base/widget/dialog/dialog_util.dart';
 import 'package:library_base/widget/easyrefresh/first_refresh.dart';
 import 'package:library_base/widget/image/gallery_photo.dart';
 import 'package:library_base/widget/image/local_image.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class InappWebviewPage extends StatefulWidget {
   final String? url;
@@ -49,9 +45,9 @@ class InappWebviewPage extends StatefulWidget {
 }
 
 class InappWebviewPageState extends State<InappWebviewPage> {
-  InAppWebViewController? webviewController;
-  PullToRefreshController? pullToRefreshController;
-  ContextMenu? contextMenu;
+  late InAppWebViewController? webviewController;
+  late PullToRefreshController? pullToRefreshController;
+  late ContextMenu? contextMenu;
 
   double _opacity = 0.01;
   bool loaded = false;
@@ -59,7 +55,6 @@ class InappWebviewPageState extends State<InappWebviewPage> {
   @override
   void initState() {
     super.initState();
-
     pullToRefreshController = PullToRefreshController(
       settings: PullToRefreshSettings(
           color: Colours.transparent,

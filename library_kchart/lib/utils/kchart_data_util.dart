@@ -314,7 +314,6 @@ class KChartDataUtil {
 
   //增量更新时计算最后一个数据
   static addLastData(List<KLineEntity> dataList, KLineEntity data) {
-    if (dataList == null || data == null) return;
     dataList.add(data);
     _calcMA(dataList, true);
     _calcBOLL(dataList, true);
@@ -327,7 +326,6 @@ class KChartDataUtil {
 
   //更新最后一条数据
   static updateLastData(List<KLineEntity> dataList) {
-    if (dataList == null) return;
     _calcMA(dataList, true);
     _calcBOLL(dataList, true);
     _calcVolumeMA(dataList, true);

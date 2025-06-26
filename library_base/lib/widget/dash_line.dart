@@ -6,18 +6,19 @@ class DashLine extends StatelessWidget {
   final double strokeWidth;
   final double gap;
 
-  DashLine(
-      {this.color = Colors.black, this.strokeWidth = 1.0, this.gap = 5.0});
+  const DashLine(
+      {super.key,
+      this.color = Colors.black,
+      this.strokeWidth = 1.0,
+      this.gap = 5.0});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: strokeWidth/2),
-        child: CustomPaint(
-          painter:
-          DashRectPainter(color: color, strokeWidth: strokeWidth, gap: gap),
-        ),
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: strokeWidth / 2),
+      child: CustomPaint(
+        painter:
+            DashRectPainter(color: color, strokeWidth: strokeWidth, gap: gap),
       ),
     );
   }
@@ -42,7 +43,7 @@ class DashRectPainter extends CustomPainter {
     double y = size.height;
 
     Path _topPath = getDashedPath(
-      a: math.Point(0, 0),
+      a: const math.Point(0, 0),
       b: math.Point(x, 0),
       gap: gap,
     );

@@ -10,6 +10,7 @@ import 'package:library_base/utils/log_util.dart';
 import 'package:web_socket_channel/io.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
+/// WebSocket工具类
 class WebSocketUtil {
   static const String _TAG = "WebSocketUtil";
 
@@ -144,6 +145,7 @@ class WebSocketUtil {
     }
   }
 
+  /// 发送消息
   void sendMessage(message) {
     if (_channel != null) {
       LogUtil.v('websocket send: $message, isconnect: $_isConnect', tag: _TAG);

@@ -12,7 +12,7 @@ class CommonScrollView extends StatelessWidget {
   /// 注意：同时存在底部按钮与keyboardConfig配置时，为保证软键盘弹出高度正常。需要在`Scaffold`使用 `resizeToAvoidBottomInset: defaultTargetPlatform != TargetPlatform.iOS,`
   /// 除非Android与iOS平台均使用keyboard_actions
   const CommonScrollView(
-      {Key? key,
+      {super.key,
       required this.children,
       this.padding,
       this.physics = const BouncingScrollPhysics(),
@@ -25,8 +25,7 @@ class CommonScrollView extends StatelessWidget {
       this.tapOutsideToDismiss = false,
       this.overScroll = 16.0,
       this.borderRadius,
-      this.shotController})
-      : super(key: key);
+      this.shotController});
 
   final List<Widget> children;
   final EdgeInsetsGeometry? padding;
@@ -79,7 +78,7 @@ class CommonScrollView extends StatelessWidget {
           isDialog: bottomButton != null,
           overscroll: overScroll,
           config: keyboardConfig!,
-          tapOutsideToDismiss: tapOutsideToDismiss,
+          tapOutsideBehavior: TapOutsideBehavior.opaqueDismiss,
           child: contents);
     } else {
       if (DeviceUtil.isWeb || DeviceUtil.isDesktop) {
@@ -126,13 +125,12 @@ class OverScrollBehavior extends ScrollBehavior {
       case TargetPlatform.android:
       case TargetPlatform.fuchsia:
         return GlowingOverscrollIndicator(
-          child: child,
-          //不显示头部水波纹
           showLeading: false,
           //显示尾部水波纹
           showTrailing: true,
           axisDirection: axisDirection,
           color: Theme.of(context).primaryColor,
+          child: child,
         );
       case TargetPlatform.linux:
       // TODO: Handle this case.

@@ -28,9 +28,10 @@ class S {
   static const AppLocalizationDelegate delegate = AppLocalizationDelegate();
 
   static Future<S> load(Locale locale) {
-    final name = (locale.countryCode?.isEmpty ?? false)
-        ? locale.languageCode
-        : locale.toString();
+    final name =
+        (locale.countryCode?.isEmpty ?? false)
+            ? locale.languageCode
+            : locale.toString();
     final localeName = Intl.canonicalizedLocale(name);
     return initializeMessages(localeName).then((_) {
       Intl.defaultLocale = localeName;
@@ -697,6 +698,291 @@ class S {
       desc: '',
       args: [],
     );
+  }
+
+  /// `深度`
+  String get proDepth {
+    return Intl.message('深度', name: 'proDepth', desc: '', args: []);
+  }
+
+  /// `买`
+  String get proBid {
+    return Intl.message('买', name: 'proBid', desc: '', args: []);
+  }
+
+  /// `卖`
+  String get proAsk {
+    return Intl.message('卖', name: 'proAsk', desc: '', args: []);
+  }
+
+  /// `最新成交`
+  String get proLaststDeal {
+    return Intl.message('最新成交', name: 'proLaststDeal', desc: '', args: []);
+  }
+
+  /// `委托订单`
+  String get proDepthOrder {
+    return Intl.message('委托订单', name: 'proDepthOrder', desc: '', args: []);
+  }
+
+  /// `时间`
+  String get proTime {
+    return Intl.message('时间', name: 'proTime', desc: '', args: []);
+  }
+
+  /// `方向`
+  String get proWay {
+    return Intl.message('方向', name: 'proWay', desc: '', args: []);
+  }
+
+  /// `价格`
+  String get proPrice {
+    return Intl.message('价格', name: 'proPrice', desc: '', args: []);
+  }
+
+  /// `数量`
+  String get proAmount {
+    return Intl.message('数量', name: 'proAmount', desc: '', args: []);
+  }
+
+  /// `热力图`
+  String get treemap {
+    return Intl.message('热力图', name: 'treemap', desc: '', args: []);
+  }
+
+  /// `全部`
+  String get all {
+    return Intl.message('全部', name: 'all', desc: '', args: []);
+  }
+
+  /// `更多`
+  String get more {
+    return Intl.message('更多', name: 'more', desc: '', args: []);
+  }
+
+  /// `全球行情`
+  String get globalQuote {
+    return Intl.message('全球行情', name: 'globalQuote', desc: '', args: []);
+  }
+
+  /// `更多链接`
+  String get moreLink {
+    return Intl.message('更多链接', name: 'moreLink', desc: '', args: []);
+  }
+
+  /// `BTC/ETH为实时行情数据，其余数据为15分钟延时报价；`
+  String get quoteDefinition {
+    return Intl.message(
+      'BTC/ETH为实时行情数据，其余数据为15分钟延时报价；',
+      name: 'quoteDefinition',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `发行日期`
+  String get proPublishDate {
+    return Intl.message('发行日期', name: 'proPublishDate', desc: '', args: []);
+  }
+
+  /// `市场总值`
+  String get proTotalMarketValue {
+    return Intl.message(
+      '市场总值',
+      name: 'proTotalMarketValue',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `24H成交量`
+  String get pro24hTradeVolume {
+    return Intl.message(
+      '24H成交量',
+      name: 'pro24hTradeVolume',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `24H成交量`
+  String get pro24hVolume {
+    return Intl.message('24H成交量', name: 'pro24hVolume', desc: '', args: []);
+  }
+
+  /// `24H成交额`
+  String get pro24hAmount {
+    return Intl.message('24H成交额', name: 'pro24hAmount', desc: '', args: []);
+  }
+
+  /// `全网算力`
+  String get proComputePower {
+    return Intl.message('全网算力', name: 'proComputePower', desc: '', args: []);
+  }
+
+  /// `市值`
+  String get proMarketValue {
+    return Intl.message('市值', name: 'proMarketValue', desc: '', args: []);
+  }
+
+  /// `总量`
+  String get proTotalVolum {
+    return Intl.message('总量', name: 'proTotalVolum', desc: '', args: []);
+  }
+
+  /// `流通量`
+  String get proCirculation {
+    return Intl.message('流通量', name: 'proCirculation', desc: '', args: []);
+  }
+
+  /// `流通量比`
+  String get proCirculationRatio {
+    return Intl.message(
+      '流通量比',
+      name: 'proCirculationRatio',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `地址资产分布`
+  String get proAddressAssetsDistribution {
+    return Intl.message(
+      '地址资产分布',
+      name: 'proAddressAssetsDistribution',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `地址总数`
+  String get proAddressTotalAmount {
+    return Intl.message(
+      '地址总数',
+      name: 'proAddressTotalAmount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `地址数量`
+  String get proAddressAmount {
+    return Intl.message('地址数量', name: 'proAddressAmount', desc: '', args: []);
+  }
+
+  /// `余额范围`
+  String get proBalanceRange {
+    return Intl.message('余额范围', name: 'proBalanceRange', desc: '', args: []);
+  }
+
+  /// `占比`
+  String get proProportion {
+    return Intl.message('占比', name: 'proProportion', desc: '', args: []);
+  }
+
+  /// `较昨日`
+  String get proCompareYesterday {
+    return Intl.message('较昨日', name: 'proCompareYesterday', desc: '', args: []);
+  }
+
+  /// `交易平台数据`
+  String get proTradePlatformData {
+    return Intl.message(
+      '交易平台数据',
+      name: 'proTradePlatformData',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `交易平台`
+  String get proTradePlatform {
+    return Intl.message('交易平台', name: 'proTradePlatform', desc: '', args: []);
+  }
+
+  /// `最新价`
+  String get proLatestPrice {
+    return Intl.message('最新价', name: 'proLatestPrice', desc: '', args: []);
+  }
+
+  /// `涨幅`
+  String get proRate {
+    return Intl.message('涨幅', name: 'proRate', desc: '', args: []);
+  }
+
+  /// `优质资产对比`
+  String get proAssetsCompare {
+    return Intl.message('优质资产对比', name: 'proAssetsCompare', desc: '', args: []);
+  }
+
+  /// `简况`
+  String get briefInfo {
+    return Intl.message('简况', name: 'briefInfo', desc: '', args: []);
+  }
+
+  /// `数据`
+  String get data {
+    return Intl.message('数据', name: 'data', desc: '', args: []);
+  }
+
+  /// `更新时间`
+  String get updateTime {
+    return Intl.message('更新时间', name: 'updateTime', desc: '', args: []);
+  }
+
+  /// `分时`
+  String get timeline {
+    return Intl.message('分时', name: 'timeline', desc: '', args: []);
+  }
+
+  /// `5M`
+  String get kline5m {
+    return Intl.message('5M', name: 'kline5m', desc: '', args: []);
+  }
+
+  /// `15M`
+  String get kline15m {
+    return Intl.message('15M', name: 'kline15m', desc: '', args: []);
+  }
+
+  /// `1H`
+  String get kline1h {
+    return Intl.message('1H', name: 'kline1h', desc: '', args: []);
+  }
+
+  /// `24H`
+  String get kline24h {
+    return Intl.message('24H', name: 'kline24h', desc: '', args: []);
+  }
+
+  /// `1周`
+  String get kline1week {
+    return Intl.message('1周', name: 'kline1week', desc: '', args: []);
+  }
+
+  /// `1月`
+  String get kline1month {
+    return Intl.message('1月', name: 'kline1month', desc: '', args: []);
+  }
+
+  /// `1年`
+  String get kline1year {
+    return Intl.message('1年', name: 'kline1year', desc: '', args: []);
+  }
+
+  /// `全部`
+  String get klineAll {
+    return Intl.message('全部', name: 'klineAll', desc: '', args: []);
+  }
+
+  /// `里程碑`
+  String get milestone {
+    return Intl.message('里程碑', name: 'milestone', desc: '', args: []);
+  }
+
+  /// `区块链里程碑`
+  String get blockMileStone {
+    return Intl.message('区块链里程碑', name: 'blockMileStone', desc: '', args: []);
   }
 }
 

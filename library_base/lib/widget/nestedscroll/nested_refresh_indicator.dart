@@ -6,7 +6,6 @@ import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 // The over-scroll distance that moves the indicator to its maximum
 // displacement, as a percentage of the scrollable's container extent.
@@ -106,7 +105,7 @@ class NestedRefreshIndicator extends StatefulWidget {
   /// An empty string may be passed to avoid having anything read by screen reading software.
   /// The [semanticsValue] may be used to specify progress on the widget.
   const NestedRefreshIndicator({
-    Key? key,
+    super.key,
     required this.child,
     this.displacement = 40.0,
     required this.onRefresh,
@@ -117,12 +116,7 @@ class NestedRefreshIndicator extends StatefulWidget {
     this.semanticsValue,
     this.strokeWidth = 2.0,
     this.triggerMode = NestedRefreshIndicatorTriggerMode.onEdge,
-  })  : assert(child != null),
-        assert(onRefresh != null),
-        assert(notificationPredicate != null),
-        assert(strokeWidth != null),
-        assert(triggerMode != null),
-        super(key: key);
+  });
 
   /// The widget below this widget in the tree.
   ///

@@ -253,10 +253,10 @@ packages:
     dependency: transitive
     description:
       name: fl_chart
-      sha256: f2e9137f261d0f53a820f6b829c80ba570ac915284c8e32789d973834796eca0
+      sha256: a92c5677c820884abc7cd7980ef2ecc6df094ecd2730074cbb77f7d195afefd4
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.71.0"
+    version: "0.20.1"
   fluro:
     dependency: transitive
     description:
@@ -564,6 +564,13 @@ packages:
       relative: true
     source: path
     version: "0.0.1"
+  library_kchart:
+    dependency: transitive
+    description:
+      path: library_kchart
+      relative: true
+    source: path
+    version: "0.0.1"
   lints:
     dependency: transitive
     description:
@@ -633,6 +640,13 @@ packages:
       relative: true
     source: path
     version: "0.0.1"
+  module_quote:
+    dependency: "direct main"
+    description:
+      path: module_quote
+      relative: true
+    source: path
+    version: "0.0.1"
   module_user:
     dependency: "direct main"
     description:
@@ -688,6 +702,22 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.9.0"
+  path_drawing:
+    dependency: transitive
+    description:
+      name: path_drawing
+      sha256: "3bdd251dae9ffaef944450b73f168610db7e968e7b20daf0c3907f8b4aafc8a2"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.5.1+1"
+  path_parsing:
+    dependency: transitive
+    description:
+      name: path_parsing
+      sha256: ee5c47c1058ad66b4a41746ec3996af9593d0858872807bcd64ac118f0700337
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.2.1"
   path_provider:
     dependency: transitive
     description:
@@ -736,6 +766,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.3.0"
+  pedantic:
+    dependency: transitive
+    description:
+      name: pedantic
+      sha256: "67fc27ed9639506c856c840ccce7594d0bdcd91bc8d53d6e52359449a1d50602"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.11.1"
   permission_handler:
     dependency: transitive
     description:

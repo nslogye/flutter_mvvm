@@ -2,7 +2,6 @@ import 'dart:typed_data';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:library_base/constant/constant.dart';
@@ -27,9 +26,10 @@ class Gallery {
   final String? resource;
 }
 
-
-class GalleryPhotoViewWrapper extends StatefulWidget{
+//图片预览
+class GalleryPhotoViewWrapper extends StatefulWidget {
   GalleryPhotoViewWrapper({
+    super.key,
     this.loadingBuilder,
     this.backgroundDecoration,
     this.minScale,
@@ -54,7 +54,8 @@ class GalleryPhotoViewWrapper extends StatefulWidget{
   }
 }
 
-class _GalleryPhotoViewWrapperState extends State<GalleryPhotoViewWrapper> with BasePageMixin<GalleryPhotoViewWrapper>  {
+class _GalleryPhotoViewWrapperState extends State<GalleryPhotoViewWrapper>
+    with BasePageMixin<GalleryPhotoViewWrapper> {
   late int currentIndex;
 
   @override
@@ -84,15 +85,17 @@ class _GalleryPhotoViewWrapperState extends State<GalleryPhotoViewWrapper> with 
               scrollPhysics: const BouncingScrollPhysics(),
               builder: _buildItem,
               itemCount: widget.galleryItems.length,
-              loadingBuilder: widget.loadingBuilder ?? (context, event) {
-                return Center(
-                  child: SpinKitCircle(
-                    color: Colours.app_main,
-                    size: 30.0,
-                  ),
-                );
-              },
-              backgroundDecoration: widget.backgroundDecoration as BoxDecoration?,
+              loadingBuilder: widget.loadingBuilder ??
+                  (context, event) {
+                    return const Center(
+                      child: SpinKitCircle(
+                        color: Colours.app_main,
+                        size: 30.0,
+                      ),
+                    );
+                  },
+              backgroundDecoration:
+                  widget.backgroundDecoration as BoxDecoration?,
               pageController: widget.pageController,
               onPageChanged: onPageChanged,
               scrollDirection: widget.scrollDirection,
@@ -100,10 +103,8 @@ class _GalleryPhotoViewWrapperState extends State<GalleryPhotoViewWrapper> with 
             Container(
               alignment: Alignment.topCenter,
               padding: const EdgeInsets.only(top: 40.0),
-              child: Text(
-                "${currentIndex + 1} / ${widget.galleryItems.length}",
-                style: TextStyles.textWhite16
-              ),
+              child: Text("${currentIndex + 1} / ${widget.galleryItems.length}",
+                  style: TextStyles.textWhite16),
             ),
             Container(
               alignment: Alignment.bottomRight,
@@ -112,23 +113,23 @@ class _GalleryPhotoViewWrapperState extends State<GalleryPhotoViewWrapper> with 
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   GestureDetector(
-                      onTap: (){
+                      onTap: () {
                         final Gallery item = widget.galleryItems[currentIndex];
-                        DialogUtil.showShareImageDialog(context,
+                        DialogUtil.showShareImageDialog(
+                          context,
                           imgUrl: item.resource ?? '',
                         );
                       },
-                      child: LocalImage('icon_share_dark', package: Constant.baseLib, width: 38, height: 38)
-                  ),
+                      child: const LocalImage('icon_share_dark',
+                          package: Constant.baseLib, width: 38, height: 38)),
                   Gaps.hGap24,
                   GestureDetector(
                       onTap: () => _save(context),
-                      child: LocalImage('icon_save_dark', package: Constant.baseLib, width: 38, height: 38)
-                  ),
+                      child: const LocalImage('icon_save_dark',
+                          package: Constant.baseLib, width: 38, height: 38)),
                 ],
               ),
             )
-
           ],
         ),
       ),
@@ -149,9 +150,7 @@ class _GalleryPhotoViewWrapperState extends State<GalleryPhotoViewWrapper> with 
 
   @override
   Widget buildProgress({String? content, bool showContent = true}) {
-    return LoadingCenterDialog(
-        content: content,
-        showContent: showContent);
+    return LoadingCenterDialog(content: content, showContent: showContent);
   }
 
   Future<void> _save(BuildContext context) async {
@@ -163,14 +162,18 @@ class _GalleryPhotoViewWrapperState extends State<GalleryPhotoViewWrapper> with 
 
     showProgress(content: S.of(context).saving);
     final Gallery item = widget.galleryItems[currentIndex];
-    var response = await Dio().get(item.resource ?? '', options: Options(responseType: ResponseType.bytes));
-    final result = await ImageGallerySaver.saveImage(Uint8List.fromList(response.data));
+    var response = await Dio().get(item.resource ?? '',
+        options: Options(responseType: ResponseType.bytes));
+    final result =
+        await ImageGallerySaver.saveImage(Uint8List.fromList(response.data));
 
     closeProgress();
-    if (ObjectUtil.isEmpty(result)){
+    if (ObjectUtil.isEmpty(result)) {
       ToastUtil.error(S.of(context).saveFailed);
-    } else{
-      String suffix = result['filePath'] != null ? result['filePath']?.replaceAll("file://", "") : '';
+    } else {
+      String suffix = result['filePath'] != null
+          ? result['filePath']?.replaceAll("file://", "")
+          : '';
       ToastUtil.success(S.of(context).saveSuccess + suffix);
     }
   }

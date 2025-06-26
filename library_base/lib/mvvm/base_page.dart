@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:library_base/utils/log_util.dart';
 import 'package:library_base/widget/dialog/loading_dialog.dart';
 
+/// 页面基类 抽象类
 abstract class IBasePage {
   BuildContext getContext();
 

@@ -2,7 +2,7 @@
  * @Author: wanku.ye nslogye@gmail.com
  * @Date: 2025-06-03 15:38:36
  * @LastEditors: wanku.ye nslogye@gmail.com
- * @LastEditTime: 2025-06-05 17:08:00
+ * @LastEditTime: 2025-06-26 15:04:08
  * @FilePath: /flutter_mvvm/library_base/lib/widget/double_tap_back_exit_app.dart
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -14,10 +14,10 @@ import 'package:library_base/utils/toast_util.dart';
 /// 双击返回退出
 class DoubleTapBackExitApp extends StatefulWidget {
   const DoubleTapBackExitApp({
-    Key? key,
+    super.key,
     required this.child,
     this.duration = const Duration(milliseconds: 2500),
-  }) : super(key: key);
+  });
 
   final Widget child;
 
@@ -25,18 +25,19 @@ class DoubleTapBackExitApp extends StatefulWidget {
   final Duration duration;
 
   @override
-  _DoubleTapBackExitAppState createState() => _DoubleTapBackExitAppState();
+  DoubleTapBackExitAppState createState() => DoubleTapBackExitAppState();
 }
 
-class _DoubleTapBackExitAppState extends State<DoubleTapBackExitApp> {
+class DoubleTapBackExitAppState extends State<DoubleTapBackExitApp> {
   DateTime? _lastTime;
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: _isExit,
-      child: widget.child,
-    );
+    return PopScope(
+        onPopInvokedWithResult: (didPop, result) => {
+              if (!didPop) {_isExit()}
+            },
+        child: widget.child);
   }
 
   Future<bool> _isExit() async {

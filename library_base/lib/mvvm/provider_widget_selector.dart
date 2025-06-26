@@ -9,7 +9,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-/// Provider封装类
+/// Provider封装类 Selector封装
 /// 方便数据初始化
 class ProviderWidget<T extends ChangeNotifier, S> extends StatefulWidget {
   final ValueWidgetBuilder<S> builder;

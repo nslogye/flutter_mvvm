@@ -4,6 +4,13 @@ import 'package:library_base/utils/log_util.dart';
 
 import 'view_state.dart';
 
+/// ViewStateModel
+/// 1. 提供页面状态管理
+/// 2. 提供网络请求取消,页面销毁时自动取消
+/// 3. 提供错误信息管理
+/// 4. 提供数据管理
+/// 5. 提供数据变化通知
+/// 6. 提供页面销毁时自动取消网络请求
 class ViewStateModel with ChangeNotifier {
   /// 防止页面销毁后,异步任务才完成,导致报错
   bool _disposed = false;

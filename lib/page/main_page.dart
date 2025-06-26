@@ -2,7 +2,7 @@
  * @Author: wanku.ye nslogye@gmail.com
  * @Date: 2025-06-03 18:41:15
  * @LastEditors: wanku.ye nslogye@gmail.com
- * @LastEditTime: 2025-06-11 15:53:02
+ * @LastEditTime: 2025-06-23 15:19:25
  * @FilePath: /flutter_mvvm/lib/page/main_page.dart
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -83,19 +83,27 @@ class MainPageState extends State<MainPage>
   }
 
   void initView() {
-    _appBarTitles = [S.current.home, S.current.otc, S.current.mine];
+    _appBarTitles = [
+      S.current.home,
+      S.current.otc,
+      S.current.quote,
+      S.current.mine
+    ];
     _keyList = [
       GlobalKey<BasePageMixin>(debugLabel: _appBarTitles[0]),
       GlobalKey<BasePageMixin>(debugLabel: _appBarTitles[1]),
       GlobalKey<BasePageMixin>(debugLabel: _appBarTitles[2]),
+      GlobalKey<BasePageMixin>(debugLabel: _appBarTitles[3]),
     ];
     _pageList = [
       Routers.generatePage(context, Routers.homePage,
           parameters: Parameters()..putObj('key', _keyList![0]))!,
       Routers.generatePage(context, Routers.otcPage,
           parameters: Parameters()..putObj('key', _keyList![1]))!,
-      Routers.generatePage(context, Routers.minePage,
+      Routers.generatePage(context, Routers.quotePage,
           parameters: Parameters()..putObj('key', _keyList![2]))!,
+      Routers.generatePage(context, Routers.minePage,
+          parameters: Parameters()..putObj('key', _keyList![3]))!,
     ];
   }
 
@@ -114,6 +122,16 @@ class MainPageState extends State<MainPage>
               width: _imageSize,
               color: Colours.unselected_item_color),
           const LocalImage('tab_home_sel',
+              gaplessPlayback: true,
+              width: _imageSize,
+              color: Colours.selected_item_color),
+        ],
+        [
+          const LocalImage('tab_otc_nor',
+              gaplessPlayback: true,
+              width: _imageSize,
+              color: Colours.unselected_item_color),
+          const LocalImage('tab_otc_sel',
               gaplessPlayback: true,
               width: _imageSize,
               color: Colours.selected_item_color),
@@ -180,7 +198,7 @@ class MainPageState extends State<MainPage>
                       if (model.value == index) {
                         _keyList![index].currentState?.refresh();
                       } else {
-                        if (index == 2) {
+                        if (index == 3) {
                           if (!RTAccount().isLogin()) {
                             Routers.navigateTo(context, Routers.loginPage,
                                 parameters: null);

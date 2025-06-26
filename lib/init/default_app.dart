@@ -2,7 +2,7 @@
  * @Author: wanku.ye nslogye@gmail.com
  * @Date: 2025-06-03 15:36:40
  * @LastEditors: wanku.ye nslogye@gmail.com
- * @LastEditTime: 2025-06-10 14:35:40
+ * @LastEditTime: 2025-06-23 15:32:28
  * @FilePath: /flutter_mvvm/lib/init/default_app.dart
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -29,6 +29,7 @@ import 'package:flutter_mvvm/page/splash_page.dart';
 import 'package:module_home/home_router.dart';
 import 'package:module_login/login_router.dart';
 import 'package:module_otc/otc_router.dart';
+import 'package:module_quote/quote_router.dart';
 import 'package:module_user/uers_router.dart';
 // import 'package:module_info/info_router.dart';
 // import 'package:module_mine/mine_router.dart';
@@ -78,8 +79,14 @@ class MyAppState extends State<MyApp> {
     //强制竖屏
     OrientationHelper.setPreferredOrientations([DeviceOrientation.portraitUp]);
     OrientationHelper.forceOrientation(DeviceOrientation.portraitUp);
-    Routers.init(
-        [MainRouter(), HomeRouter(), LoginRouter(), UserRouter(), OTCRouter()]);
+    Routers.init([
+      MainRouter(),
+      HomeRouter(),
+      QuoteRouter(),
+      LoginRouter(),
+      UserRouter(),
+      OTCRouter()
+    ]);
   }
 
   @override

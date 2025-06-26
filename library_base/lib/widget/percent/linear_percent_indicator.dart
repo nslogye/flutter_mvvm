@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-enum LinearStrokeCap { butt, round, roundAll , roundHalf}
+enum LinearStrokeCap { butt, round, roundAll, roundHalf }
 
 // ignore: must_be_immutable
 class LinearPercentIndicator extends StatefulWidget {
@@ -80,7 +80,7 @@ class LinearPercentIndicator extends StatefulWidget {
   final Widget? widgetIndicator;
 
   LinearPercentIndicator({
-    Key? key,
+    super.key,
     this.fillColor = Colors.transparent,
     this.percent = 0.0,
     this.lineHeight = 5.0,
@@ -105,25 +105,22 @@ class LinearPercentIndicator extends StatefulWidget {
     this.restartAnimation = false,
     this.onAnimationEnd,
     this.widgetIndicator,
-  }) : super(key: key) {
+  }) {
     if (linearGradient != null && progressColor != null) {
       throw ArgumentError(
           'Cannot provide both linearGradient and progressColor');
     }
     _progressColor = progressColor ?? Colors.red;
-
-    assert(curve != null);
-
     if (percent < 0.0 || percent > 1.0) {
-      throw new Exception("Percent value must be a double between 0.0 and 1.0");
+      throw Exception("Percent value must be a double between 0.0 and 1.0");
     }
   }
 
   @override
-  _LinearPercentIndicatorState createState() => _LinearPercentIndicatorState();
+  LinearPercentIndicatorState createState() => LinearPercentIndicatorState();
 }
 
-class _LinearPercentIndicatorState extends State<LinearPercentIndicator>
+class LinearPercentIndicatorState extends State<LinearPercentIndicator>
     with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   AnimationController? _animationController;
   Animation? _animation;
@@ -143,7 +140,7 @@ class _LinearPercentIndicatorState extends State<LinearPercentIndicator>
 
   @override
   void initState() {
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) {
         setState(() {
           _containerWidth = _containerKey.currentContext!.size!.width;
@@ -162,13 +159,13 @@ class _LinearPercentIndicatorState extends State<LinearPercentIndicator>
       _animation = Tween(begin: 0.0, end: widget.percent).animate(
         CurvedAnimation(parent: _animationController!, curve: widget.curve),
       )..addListener(() {
-        setState(() {
-          _percent = _animation!.value;
+          setState(() {
+            _percent = _animation!.value;
+          });
+          if (widget.restartAnimation && _percent == 1.0) {
+            _animationController!.repeat(min: 0, max: 1.0);
+          }
         });
-        if (widget.restartAnimation && _percent == 1.0) {
-          _animationController!.repeat(min: 0, max: 1.0);
-        }
-      });
       _animationController!.addStatusListener((status) {
         if (widget.onAnimationEnd != null &&
             status == AnimationStatus.completed) {
@@ -190,8 +187,8 @@ class _LinearPercentIndicatorState extends State<LinearPercentIndicator>
         _animationController!.duration =
             Duration(milliseconds: widget.animationDuration);
         _animation = Tween(
-            begin: widget.animateFromLastPercent ? oldWidget.percent : 0.0,
-            end: widget.percent)
+                begin: widget.animateFromLastPercent ? oldWidget.percent : 0.0,
+                end: widget.percent)
             .animate(
           CurvedAnimation(parent: _animationController!, curve: widget.curve),
         );
@@ -291,9 +288,9 @@ class _LinearPercentIndicatorState extends State<LinearPercentIndicator>
 }
 
 class LinearPainter extends CustomPainter {
-  final Paint _paintBackground = new Paint();
-  final Paint _paintLine = new Paint();
-  final Paint _paintForeLine = new Paint();
+  final Paint _paintBackground = Paint();
+  final Paint _paintLine = Paint();
+  final Paint _paintForeLine = Paint();
   final double lineWidth;
   final double progress;
   final bool isRTL;
@@ -361,22 +358,28 @@ class LinearPainter extends CustomPainter {
       final xProgress = size.width - size.width * progress;
       if (linearGradient != null) {
         _paintLine.shader = _createGradientShaderRightToLeft(size, xProgress);
-        _paintForeLine.shader = _createGradientShaderRightToLeft(size, xProgress);
+        _paintForeLine.shader =
+            _createGradientShaderRightToLeft(size, xProgress);
       }
 
       if (linearStrokeCap == LinearStrokeCap.roundHalf) {
-        canvas.drawLine(end, Offset(size.width - size.width * 0.001, size.height / 2), _paintForeLine);
+        canvas.drawLine(
+            end,
+            Offset(size.width - size.width * 0.001, size.height / 2),
+            _paintForeLine);
       }
       canvas.drawLine(end, Offset(xProgress, size.height / 2), _paintLine);
     } else {
       final xProgress = size.width * progress;
       if (linearGradient != null) {
         _paintLine.shader = _createGradientShaderLeftToRight(size, xProgress);
-        _paintForeLine.shader = _createGradientShaderLeftToRight(size, xProgress);
+        _paintForeLine.shader =
+            _createGradientShaderLeftToRight(size, xProgress);
       }
 
       if (linearStrokeCap == LinearStrokeCap.roundHalf) {
-        canvas.drawLine(start, Offset(size.width * 0.001, size.height / 2), _paintForeLine);
+        canvas.drawLine(
+            start, Offset(size.width * 0.001, size.height / 2), _paintForeLine);
       }
       canvas.drawLine(start, Offset(xProgress, size.height / 2), _paintLine);
     }
@@ -384,7 +387,7 @@ class LinearPainter extends CustomPainter {
 
   Shader _createGradientShaderRightToLeft(Size size, double xProgress) {
     Offset shaderEndPoint =
-    clipLinearGradient ? Offset.zero : Offset(xProgress, size.height);
+        clipLinearGradient ? Offset.zero : Offset(xProgress, size.height);
     return linearGradient!.createShader(
       Rect.fromPoints(
         Offset(size.width, size.height),

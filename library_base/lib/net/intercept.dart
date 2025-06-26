@@ -43,7 +43,6 @@ class AuthInterceptor extends Interceptor {
       options.headers[Apis.KEY_CHANNEL] = channel;
     } else {
       PackageInfo packageInfo = await PackageInfo.fromPlatform();
-
       String? version = packageInfo.version;
       String language =
           WidgetsBinding.instance.platformDispatcher.locale.toString();

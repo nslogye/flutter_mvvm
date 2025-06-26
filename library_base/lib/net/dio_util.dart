@@ -25,7 +25,7 @@ class DioUtil {
     return _instance;
   }
 
-  Dio dio = new Dio();
+  Dio dio = Dio();
 
   DioUtil() {
     dio.options.baseUrl = AppConfig.env.apiUrl;
@@ -34,7 +34,11 @@ class DioUtil {
     dio.options.connectTimeout = const Duration(milliseconds: 10000);
     dio.options.receiveTimeout = const Duration(milliseconds: 5000);
     dio.interceptors.add(AuthInterceptor());
-    //dio.interceptors.add(LogInterceptor(request:false, requestHeader:false, responseHeader: false, responseBody: false)); //是否开启请求日志
+    dio.interceptors.add(LogInterceptor(
+        request: true,
+        requestHeader: true,
+        responseHeader: true,
+        responseBody: true)); //是否开启请求日志
   }
 
   Map<String, dynamic> parseData(String data) {

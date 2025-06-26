@@ -1,6 +1,11 @@
-
-
-
+/*
+ * @Author: wanku.ye nslogye@gmail.com
+ * @Date: 2025-06-03 18:58:34
+ * @LastEditors: wanku.ye nslogye@gmail.com
+ * @LastEditTime: 2025-06-26 15:23:02
+ * @FilePath: /flutter_mvvm/library_kchart/lib/entity/k_line_entity.dart
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
 import 'package:library_kchart/entity/k_entity.dart';
 
 class KLineEntity extends KEntity {
@@ -35,16 +40,16 @@ class KLineEntity extends KEntity {
     id = (json['id'] as num?)?.toInt();
   }
 
-  Map<String, dynamic> toJson(){
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['open'] = this.open;
-    data['close'] = this.close;
-    data['high'] = this.high;
-    data['low'] = this.low;
-    data['vol'] = this.vol;
-    data['amount'] = this.amount;
-    data['count'] = this.count;
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['open'] = open;
+    data['close'] = close;
+    data['high'] = high;
+    data['low'] = low;
+    data['vol'] = vol;
+    data['amount'] = amount;
+    data['count'] = count;
     return data;
   }
 

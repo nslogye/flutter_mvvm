@@ -17,7 +17,7 @@ class _DigitSlideController extends ValueNotifier {
 }
 
 ///A widget for displaying a single digit.
-class _DigitSlide extends StatelessWidget {
+class DigitSlide extends StatelessWidget {
   final Color backgroundColor;
 
   final Curve curve;
@@ -32,16 +32,14 @@ class _DigitSlide extends StatelessWidget {
 
   final _DigitSlideController controller;
 
-  _DigitSlide(
+  DigitSlide(
       {this.backgroundColor = Colors.transparent,
       this.curve = Curves.ease,
       required this.controller,
       required this.initialNumber,
       required this.textStyle,
       required this.duration})
-      : assert(controller != null, 'Controller cannot be null.'),
-        assert(initialNumber != null, 'Initial number cannot be null.'),
-        super(key: Key(controller.toString())) {
+      : super(key: Key(controller.toString())) {
     scrollController = ScrollController(
         initialScrollOffset: textStyle.fontSize! * (9 / 10) * _initOffset());
     controller.addListener(onValueChanged);
@@ -67,7 +65,7 @@ class _DigitSlide extends StatelessWidget {
 
   ///Scrolls to the positions of the new number.
   void onValueChanged() {
-    if (this.scrollController.hasClients) {
+    if (scrollController.hasClients) {
       if (_isNumber(controller.number)) {
         int digit = controller.number!.codeUnitAt(0) - 48;
         scrollController.animateTo(digit * textStyle.fontSize! * (9 / 10),
@@ -93,10 +91,10 @@ class _DigitSlide extends StatelessWidget {
               _isNumber(controller.number)
                   ? ListView(
                       controller: scrollController,
-                      physics: NeverScrollableScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
                       children: [
                         for (var i in List.generate(10, (index) => index))
-                          Container(
+                          SizedBox(
                             height: textStyle.fontSize! * (9 / 10),
                             child: Center(
                               child: Text("$i", style: textStyle),
@@ -104,7 +102,7 @@ class _DigitSlide extends StatelessWidget {
                           )
                       ],
                     )
-                  : Container(
+                  : SizedBox(
                       height: textStyle.fontSize! * (9 / 10),
                       child: Center(
                         child: Text(controller.number!, style: textStyle),
@@ -120,13 +118,13 @@ class NumberSlideController extends ValueNotifier {
   String? _number;
 
   NumberSlideController() : super(0) {
-    this._number = '0';
+    _number = '0';
   }
 
   String? get number => _number;
 
   set number(String? num) {
-    this._number = num;
+    _number = num;
     super.value = num;
   }
 }
@@ -140,23 +138,21 @@ class NumberSlide extends StatefulWidget {
   final TextStyle textStyle;
 
   NumberSlide(
-      {this.backgroundColor = Colors.transparent,
+      {super.key,
+      this.backgroundColor = Colors.transparent,
       this.curve = Curves.ease,
       required this.controller,
       this.textStyle = const TextStyle(color: Colors.black, fontSize: 12),
       required this.initialNumber,
-      this.duration = const Duration(milliseconds: 300)})
-      : assert(controller != null, 'Controller cannot be null.'),
-        assert(initialNumber != null, 'Initial number cannot be null.'),
-        assert(duration != null, 'Duration cannot be null.') {
-    this.controller.number = initialNumber;
+      this.duration = const Duration(milliseconds: 300)}) {
+    controller.number = initialNumber;
   }
 
   @override
-  _NumberSlideState createState() => _NumberSlideState();
+  NumberSlideState createState() => NumberSlideState();
 }
 
-class _NumberSlideState extends State<NumberSlide>
+class NumberSlideState extends State<NumberSlide>
     with SingleTickerProviderStateMixin {
   late AnimationController animationController;
 
@@ -168,8 +164,8 @@ class _NumberSlideState extends State<NumberSlide>
 
   @override
   void initState() {
-    animationController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 500));
+    animationController = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 500));
 
     var numString = widget.initialNumber;
 
@@ -191,8 +187,8 @@ class _NumberSlideState extends State<NumberSlide>
             }
           }
 
-          this.longer = false;
-          this.shorter = false;
+          longer = false;
+          shorter = false;
         });
         animationController.value = 0;
       }
@@ -258,54 +254,51 @@ class _NumberSlideState extends State<NumberSlide>
     return AnimatedBuilder(
         animation: animationController,
         builder: (_, __) {
-          return Container(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                    color: widget.backgroundColor,
-                    width: longer ? (animationController.value) * width : width,
-                    child: digitControllers.first == null
-                        ? Text(' ')
-                        : _DigitSlide(
-                            backgroundColor: widget.backgroundColor,
-                            controller: digitControllers.first,
-                            curve: widget.curve,
-                            duration: widget.duration,
-                            textStyle: widget.textStyle,
-                            initialNumber: currentNumString[0],
-                          )),
-                for (int i = 1; i < digitControllers.length - 1; i++)
-                  digitControllers[i] == null
-                      ? Text(' ')
-                      : _DigitSlide(
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                  color: widget.backgroundColor,
+                  width: longer ? (animationController.value) * width : width,
+                  child: digitControllers.first == null
+                      ? const Text(' ')
+                      : DigitSlide(
                           backgroundColor: widget.backgroundColor,
-                          controller: digitControllers[i],
+                          controller: digitControllers.first,
                           curve: widget.curve,
                           duration: widget.duration,
                           textStyle: widget.textStyle,
-                          initialNumber: i == currentNumString.length
-                              ? '0'
-                              : currentNumString[i]),
-                if (digitControllers.length > 1)
-                  Container(
-                    width: shorter
-                        ? (1 - animationController.value) * width
-                        : width,
-                    child: digitControllers.last == null
-                        ? Text(' ')
-                        : _DigitSlide(
-                            backgroundColor: widget.backgroundColor,
-                            controller: digitControllers.last,
-                            curve: widget.curve,
-                            duration: widget.duration,
-                            textStyle: widget.textStyle,
-                            initialNumber:
-                                currentNumString[currentNumString.length - 1]),
-                  ),
-              ],
-            ),
+                          initialNumber: currentNumString[0],
+                        )),
+              for (int i = 1; i < digitControllers.length - 1; i++)
+                digitControllers[i] == null
+                    ? const Text(' ')
+                    : DigitSlide(
+                        backgroundColor: widget.backgroundColor,
+                        controller: digitControllers[i],
+                        curve: widget.curve,
+                        duration: widget.duration,
+                        textStyle: widget.textStyle,
+                        initialNumber: i == currentNumString.length
+                            ? '0'
+                            : currentNumString[i]),
+              if (digitControllers.length > 1)
+                SizedBox(
+                  width:
+                      shorter ? (1 - animationController.value) * width : width,
+                  child: digitControllers.last == null
+                      ? const Text(' ')
+                      : DigitSlide(
+                          backgroundColor: widget.backgroundColor,
+                          controller: digitControllers.last,
+                          curve: widget.curve,
+                          duration: widget.duration,
+                          textStyle: widget.textStyle,
+                          initialNumber:
+                              currentNumString[currentNumString.length - 1]),
+                ),
+            ],
           );
         });
   }
