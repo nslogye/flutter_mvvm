@@ -18,12 +18,12 @@ class ShareLinkDialog extends StatelessWidget {
   final String? thumb_share;
 
   ShareLinkDialog({
-    Key? key,
+    super.key,
     required this.url_share,
     this.title_share,
     this.summary_share,
     this.thumb_share,
-  }) : super(key: key);
+  });
 
   Future<void> _copyLink(BuildContext context) async {
     String content = '$title_share\n$url_share';
@@ -61,91 +61,83 @@ class ShareLinkDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     Widget shareWechat = InkWell(
       onTap: () => _shareWechat(context, WeChatScene.session),
-      child: Container(
-        child: Column(
-          children: [
-            LocalImage('icon_share_wechat',
-                package: Constant.baseLib, width: 48, height: 48),
-            Gaps.vGap4,
-            Text(
-              S.of(context).shareWechat,
-              style: TextStyles.textGray800_w400_12,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            )
-          ],
-        ),
+      child: Column(
+        children: [
+          const LocalImage('icon_share_wechat',
+              package: Constant.baseLib, width: 48, height: 48),
+          Gaps.vGap4,
+          Text(
+            S.of(context).shareWechat,
+            style: TextStyles.textGray800_w400_12,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          )
+        ],
       ),
     );
 
     Widget shareFriend = InkWell(
       onTap: () => _shareWechat(context, WeChatScene.timeline),
-      child: Container(
-        child: Column(
-          children: [
-            LocalImage('icon_share_friend',
-                package: Constant.baseLib, width: 48, height: 48),
-            Gaps.vGap4,
-            Text(
-              S.of(context).shareFriend,
-              style: TextStyles.textGray800_w400_12,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            )
-          ],
-        ),
+      child: Column(
+        children: [
+          const LocalImage('icon_share_friend',
+              package: Constant.baseLib, width: 48, height: 48),
+          Gaps.vGap4,
+          Text(
+            S.of(context).shareFriend,
+            style: TextStyles.textGray800_w400_12,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          )
+        ],
       ),
     );
 
     Widget shareSave = InkWell(
       onTap: () => _copyLink(context),
-      child: Container(
-        child: Column(
-          children: [
-            LocalImage('icon_share_link',
-                package: Constant.baseLib, width: 48, height: 48),
-            Gaps.vGap4,
-            Text(
-              S.of(context).shareCopyLink,
-              style: TextStyles.textGray800_w400_12,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            )
-          ],
-        ),
+      child: Column(
+        children: [
+          const LocalImage('icon_share_link',
+              package: Constant.baseLib, width: 48, height: 48),
+          Gaps.vGap4,
+          Text(
+            S.of(context).shareCopyLink,
+            style: TextStyles.textGray800_w400_12,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          )
+        ],
       ),
     );
 
     Widget shareMore = InkWell(
       onTap: () => _more(context),
-      child: Container(
-        child: Column(
-          children: [
-            LocalImage('icon_share_more',
-                package: Constant.baseLib, width: 48, height: 48),
-            Gaps.vGap4,
-            Text(
-              S.of(context).shareMore,
-              style: TextStyles.textGray800_w400_12,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            )
-          ],
-        ),
+      child: Column(
+        children: [
+          const LocalImage('icon_share_more',
+              package: Constant.baseLib, width: 48, height: 48),
+          Gaps.vGap4,
+          Text(
+            S.of(context).shareMore,
+            style: TextStyles.textGray800_w400_12,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          )
+        ],
       ),
     );
 
     Widget bottom = Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: Colours.white,
-          borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(16.0)),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              padding:
-                  EdgeInsets.only(left: 40, right: 40, top: 20, bottom: 10),
+              padding: const EdgeInsets.only(
+                  left: 40, right: 40, top: 20, bottom: 10),
               child: IntrinsicHeight(
                   child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -155,9 +147,9 @@ class ShareLinkDialog extends StatelessWidget {
             TextButton(
                 onPressed: () => Navigator.pop(context),
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colours.white),
-                  padding: MaterialStateProperty.all(EdgeInsets.all(0)),
-                  shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                  backgroundColor: WidgetStateProperty.all(Colours.white),
+                  padding: WidgetStateProperty.all(const EdgeInsets.all(0)),
+                  shape: WidgetStateProperty.all(const RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(0)))),
                 ),
                 child: Container(

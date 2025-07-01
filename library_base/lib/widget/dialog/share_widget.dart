@@ -55,7 +55,7 @@ class ShareQRHeader extends StatelessWidget {
           QrImageView(
             data: "",
             version: QrVersions.auto,
-            padding: EdgeInsets.all(0),
+            padding: const EdgeInsets.all(0),
             size: 50.0,
           ),
         ],
@@ -67,23 +67,24 @@ class ShareQRHeader extends StatelessWidget {
 class ShareQRFoooter extends StatelessWidget {
   final Color? backgroundColor;
 
-  ShareQRFoooter({Key? key, this.backgroundColor}) : super(key: key);
+  ShareQRFoooter({super.key, this.backgroundColor});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 100,
       color: backgroundColor ?? Colours.white,
-      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 18),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 18),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          LocalImage('logo', width: 44, height: 44, package: Constant.baseLib),
+          const LocalImage('logo',
+              width: 44, height: 44, package: Constant.baseLib),
           Expanded(
               child: Container(
             height: 44,
-            margin: EdgeInsets.only(left: 8),
+            margin: const EdgeInsets.only(left: 8),
             alignment: Alignment.centerLeft,
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -115,7 +116,7 @@ class ShareQRFoooter extends StatelessWidget {
           QrImageView(
             data: "",
             version: QrVersions.auto,
-            padding: EdgeInsets.all(0),
+            padding: const EdgeInsets.all(0),
             size: 64.0,
           ),
         ],
@@ -126,15 +127,15 @@ class ShareQRFoooter extends StatelessWidget {
 
 class ShareNewsHeader extends StatelessWidget {
   ShareNewsHeader({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 104,
       width: double.infinity,
-      padding: EdgeInsets.symmetric(horizontal: 21, vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 21, vertical: 10),
       decoration: BoxDecoration(
         color: Colours.gray_100,
         image: DecorationImage(
@@ -165,7 +166,7 @@ class ShareNewsHeader extends StatelessWidget {
                 ),
                 Container(
                   height: 26,
-                  padding: EdgeInsets.only(left: 2),
+                  padding: const EdgeInsets.only(left: 2),
                   alignment: Alignment.center,
                   child: const Text(
                     "",

@@ -81,32 +81,30 @@ class IndexPlatformPageState extends State<IndexPlatformPage>
         builder: (context, model, child) {
           List<QuoteIndexPlatform> sortedList = _quoteModel.getSortedList();
           return model.isFirst
-              ? FirstRefreshTop()
+              ? const FirstRefreshTop()
               : CommonScrollView(
                   shotController: _shotController,
-                  physics: ClampingScrollPhysics(),
+                  physics: const ClampingScrollPhysics(),
                   children: [
-                      Container(
-                        child: Column(children: [
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            width: double.infinity,
-                            color: Colours.white,
-                            height: 55.0,
-                            child: _buildHeader(),
-                          ),
-                          ListView.builder(
-                            shrinkWrap: true,
-                            primary: false, //不滚动
-                            padding: const EdgeInsets.only(left: 15, right: 15),
-                            itemBuilder: (context, i) {
-                              return IndexPlatformItem(
-                                  index: i, quoteIndexPlatform: sortedList[i]);
-                            },
-                            itemCount: sortedList.length,
-                          )
-                        ]),
-                      ),
+                      Column(children: [
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          width: double.infinity,
+                          color: Colours.white,
+                          height: 55.0,
+                          child: _buildHeader(),
+                        ),
+                        ListView.builder(
+                          shrinkWrap: true,
+                          primary: false, //不滚动
+                          padding: const EdgeInsets.only(left: 15, right: 15),
+                          itemBuilder: (context, i) {
+                            return IndexPlatformItem(
+                                index: i, quoteIndexPlatform: sortedList[i]);
+                          },
+                          itemCount: sortedList.length,
+                        )
+                      ]),
                       Gaps.vGap10
                     ]);
         });
